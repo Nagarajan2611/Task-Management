@@ -30,7 +30,12 @@ public class UserServe implements UserServices{
 
         User user=mapper.map(request,User.class);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole("ROLE_USER");
+if("ROLE_ADMIN".equals(request.getRole())){
+    user.setRole("ROLE_ADMIN");
+}
+else {
+    user.setRole("ROLE_USER");
+}
         repo.save(user);
         return mapper.map(user,UserRespose.class);
     }

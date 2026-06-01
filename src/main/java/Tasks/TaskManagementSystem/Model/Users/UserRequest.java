@@ -7,7 +7,6 @@ public class UserRequest {
     private String username;
     @NotBlank
     private String password;
-
     @NotBlank
     private String role;
 

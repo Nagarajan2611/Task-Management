@@ -6,6 +6,7 @@ import Tasks.TaskManagementSystem.Model.Tasks.TaskResponse;
 import Tasks.TaskManagementSystem.Service.Tasks.TaskServe;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,18 +16,22 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskServe taskServe;
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping
     TaskResponse createtask(@RequestBody TaskRequest taskRequest){
         return taskServe.createtask(taskRequest);
     }
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PutMapping("/id/{id}")
     TaskResponse update(@PathVariable long id,@RequestBody TaskRequest taskRequest){
         return taskServe.update(id,taskRequest);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/id/{id}")
     String deleteTask(@PathVariable long id){
         return taskServe.deleteTask(id);
     }
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping
     List<TaskResponse> getAllTasks(@RequestParam(required = false,defaultValue = "1") int page,
                                    @RequestParam(required = false,defaultValue = "20") int size,
@@ -35,10 +40,12 @@ public class TaskController {
                                    @RequestBody(required = false) Task task){
         return taskServe.getAllTasks(page, size, sortby, sortdir, task);
     }
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/id/{id}")
     TaskResponse getById(@PathVariable long id){
         return taskServe.getById(id);
     }
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/status/{status}")
     List<TaskResponse> getBystatus(@PathVariable String status){
         return taskServe.getBystatus(status);

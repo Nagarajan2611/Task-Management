@@ -2,10 +2,12 @@ package Tasks.TaskManagementSystem.Model.Users;
 
 import Tasks.TaskManagementSystem.Model.Tasks.Task;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.List;
 
 @Entity
+@Builder
 @Table(name="Task_users")
 public class User{
     @Id
