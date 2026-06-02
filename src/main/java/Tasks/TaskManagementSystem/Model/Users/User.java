@@ -2,14 +2,18 @@ package Tasks.TaskManagementSystem.Model.Users;
 
 import Tasks.TaskManagementSystem.Model.Tasks.Task;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="Task_users")
 public class User{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
