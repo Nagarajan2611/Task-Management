@@ -28,10 +28,12 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader("Authorization");
         String path=request.getServletPath();
-        if(path.startsWith("/auth")){
+        System.out.println("Path : "+path);
+        if(path.startsWith("/auth")||path.startsWith("/swagger-ui")||path.startsWith("/v3/api-docs")||path.equals("/v3/api-docs/swagger-config")){
             filterChain.doFilter(request,response);
             return;
         }
+        System.out.println("Path : "+path);
         System.out.println("req_get_servlet_path " + request.getServletPath());
         String username=null;
         String token=null;
